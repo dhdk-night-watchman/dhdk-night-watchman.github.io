@@ -1,0 +1,112 @@
+:: StoryTitle
+The Night Watchman — User Journey
+
+:: StoryData
+{
+  "ifid": "8F1B2C9A-7D34-4E12-9A1C-NWATCH001",
+  "format": "Harlowe",
+  "format-version": "3.3.7",
+  "start": "Start"
+}
+
+:: Start
+The lamps are low. A guard with a lantern turns to you.
+
+"Welcome, night owl. I am the Night Watchman. The visitors have gone home, but the museum is far from asleep. Take my lantern and we shall walk the dark galleries together. Answer wrongly and you lose nothing — I hint, I help, and I never leave you in the dark."
+
+[[Take the lantern->Hall]]
+
+:: Hall
+THE MUSEUM AFTER DARK
+
+Four galleries lie in shadow. Where shall we wander?
+
+[[The Gallery of Honour->Honour]]
+[[Delftware & Decorative Arts->Delft]]
+[[The Golden Age of Sail->Sail]]
+[[Life on the Ice->Ice]]
+
+:: Honour
+You sweep the lantern across the grandest hall. Two shapes emerge from the dark.
+
+[[The Night Watch->NightWatch_Q]]
+[[The Milkmaid->Milkmaid_Q]]
+[[Back to the dark hall->Hall]]
+
+:: NightWatch_Q
+THE NIGHT WATCH — Rembrandt van Rijn, 1642
+
+The Watchman lifts the light. "What kind of group does this huge painting show?"
+
+[[A civic militia company->NightWatch_Right]]
+[[A royal family->NightWatch_Hint]]
+[[A guild of painters->NightWatch_Hint]]
+
+:: NightWatch_Hint
+"Not quite — let me hold the light a little closer. Look for muskets, pikes and a drum. These are armed townsmen, not nobles or clergy."
+
+[[Try again->NightWatch_Q2]]
+
+:: NightWatch_Q2
+"So — what kind of group is it?"
+
+[[A civic militia company->NightWatch_Right]]
+[[Still unsure — reveal it->NightWatch_Reveal]]
+
+:: NightWatch_Right
+"A good eye. The lantern shows you true." (+points)
+
+[[Continue->Honour]]
+
+:: NightWatch_Reveal
+"No matter at all. Here is the truth of it."
+
+THE WATCHMAN EXPLAINS — It is a group portrait of a civic-guard militia (a schutterij), led by Captain Frans Banninck Cocq. Rembrandt painted the men as if caught mid-movement, marching out — daringly different from the stiff group portraits of the time.
+
+[[Study it a moment->NightWatch_Right]]
+[[Move on->Honour]]
+
+:: Milkmaid_Q
+THE MILKMAID — Johannes Vermeer, c. 1660
+
+"What is the woman quietly doing?"
+
+[[Pouring milk->Generic_Right]]
+[[Reading a letter->Milkmaid_Hint]]
+[[Playing music->Milkmaid_Hint]]
+
+:: Milkmaid_Hint
+"Follow the thin white stream falling from the jug into the bowl."
+
+[[Pouring milk->Generic_Right]]
+[[Reveal it->Milkmaid_Reveal]]
+
+:: Milkmaid_Reveal
+THE WATCHMAN EXPLAINS — A kitchen maid carefully pours milk. Vermeer treats a humble, everyday task with the dignity usually reserved for grand subjects, and renders the window light with extraordinary care.
+
+[[Continue->Honour]]
+
+:: Delft
+"Glass cases gleam faintly. Sweep your lantern across the shelves." (Flower Pyramid · Dolls' House of Petronella Oortman)
+
+[[Back to the dark hall->Hall]]
+
+:: Sail
+"You can almost smell tar and salt." (Model of the William Rex · Dutch Ships in a Calm Sea)
+
+[[Back to the dark hall->Hall]]
+
+:: Ice
+"The coldest room. Frozen scenes hang waiting for your light." (Winter Landscape with Ice Skaters · Enjoying the Ice near a Town)
+
+[[Back to the dark hall->Hall]]
+
+:: Generic_Right
+"Just so. You see more than most who pass here by daylight." (+points)
+
+[[Continue->Honour]]
+
+:: End
+Dawn is near. You have walked the galleries and seen what most visitors stroll straight past.
+
+"Come back when the lamps are low again — there is always more in the dark."
