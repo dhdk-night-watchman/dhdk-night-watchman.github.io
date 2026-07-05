@@ -37,6 +37,8 @@ const GALLERIES = [
     name: "The Gallery of Honour",
     blurb: "The museum's most celebrated paintings.",
     intro: "The grandest hall. Two masterpieces wait in the dark — find them.",
+    studyIntro:
+      "This hall gathers works that many visitors come to see first: paintings where the Dutch Republic staged power, labour, light and everyday life. Keep your lantern low and look for how painters turned ordinary moments and public identity into lasting memory.",
     accent: "#7A2E2A",
     objects: ["night-watch", "milkmaid"]
   },
@@ -45,6 +47,8 @@ const GALLERIES = [
     name: "Delftware & Decorative Arts",
     blurb: "Blue-and-white ceramics and a miniature world.",
     intro: "Glass cases gleam faintly. Sweep your lantern across the shelves.",
+    studyIntro:
+      "Here the museum changes scale: from a towering Delftware flower pyramid to a cabinet-sized household made with astonishing craft. These objects show how wealth, trade, taste and domestic life could be performed through materials as much as through paintings.",
     accent: "#2E5B8A",
     objects: ["flower-pyramid", "dolls-house"]
   },
@@ -53,6 +57,8 @@ const GALLERIES = [
     name: "The Golden Age of Sail",
     blurb: "Ships, the sea and Dutch sea power.",
     intro: "You can almost smell tar and salt. A great ship looms ahead.",
+    studyIntro:
+      "This gallery follows the sea lanes that shaped the Dutch seventeenth century. Ship models and marine paintings reveal technical skill, national pride and the maritime networks behind the museum's Golden Age stories.",
     accent: "#3E6B5A",
     objects: ["william-rex", "calm-sea"]
   },
@@ -61,6 +67,8 @@ const GALLERIES = [
     name: "Life on the Ice",
     blurb: "Dutch winters, frozen rivers and everyday life.",
     intro: "The coldest room. Frozen scenes hang waiting for your light.",
+    studyIntro:
+      "In this room, winter becomes a social stage. Avercamp's frozen landscapes show play, work, danger and community together, helping us read everyday life as carefully as any grand historical scene.",
     accent: "#4A6A8A",
     objects: ["ice-skaters", "near-a-town"]
   }
@@ -77,6 +85,11 @@ const OBJECTS = {
     motif: "nightwatch",
     image: "images/night-watch.jpg",
     credit: "Rijksmuseum, Amsterdam (SK-C-5)",
+    medium: "Oil on canvas",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "SK-C-5",
+    period: "Dutch Golden Age, 17th century",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/SK-C-5",
     questions: [
       {
         q: "What kind of group does this huge painting show?",
@@ -103,6 +116,11 @@ const OBJECTS = {
     motif: "milkmaid",
     image: "images/milkmaid.jpg",
     credit: "Rijksmuseum, Amsterdam (SK-A-2344)",
+    medium: "Oil on canvas",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "SK-A-2344",
+    period: "Dutch Golden Age, 17th century",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/SK-A-2344",
     questions: [
       {
         q: "What is the woman quietly doing?",
@@ -129,6 +147,11 @@ const OBJECTS = {
     motif: "pyramid",
     image: "images/flower-pyramid.jpg",
     credit: "Rijksmuseum, Amsterdam",
+    medium: "Tin-glazed earthenware / faience, blue painted glaze",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "BK-2004-4-A",
+    period: "Late 17th-century Delftware",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Flower-pyramid--ee5cbccf1553fd69e197ebd73e03b47d",
     questions: [
       {
         q: "What was this tall blue-and-white tower actually used for?",
@@ -155,6 +178,11 @@ const OBJECTS = {
     motif: "dollhouse",
     image: "images/dolls-house.jpg",
     credit: "Rijksmuseum, Amsterdam (BK-NM-1010)",
+    medium: "Oak cabinet with tortoiseshell, tin, glass, textiles and miniature furnishings",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "BK-NM-1010",
+    period: "Dutch Golden Age, c. 1686-1710",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/BK-NM-1010",
     questions: [
       {
         q: "Who was this dolls' house really made for?",
@@ -181,6 +209,11 @@ const OBJECTS = {
     motif: "ship",
     image: "images/william-rex.jpg",
     credit: "Rijksmuseum, Amsterdam (NG-MC-651)",
+    medium: "Wood, brass, iron, glass, rope, textile and paint",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "NG-MC-651",
+    period: "Late 17th-century Dutch naval history",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/NG-MC-651",
     questions: [
       {
         q: "What is this object?",
@@ -207,6 +240,11 @@ const OBJECTS = {
     motif: "calmsea",
     image: "images/calm-sea.jpg",
     credit: "Rijksmuseum, Amsterdam",
+    medium: "Oil on canvas",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "SK-C-1707",
+    period: "Dutch Golden Age marine painting",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Dutch-Ships-in-a-Calm-Sea--c726c1d696aa0f30815f174a8f4fb646",
     questions: [
       {
         q: "What kind of weather does this sea painting show?",
@@ -233,6 +271,11 @@ const OBJECTS = {
     motif: "iceskaters",
     image: "images/ice-skaters.jpg",
     credit: "Rijksmuseum, Amsterdam (SK-A-1718)",
+    medium: "Oil on panel",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "SK-A-1718",
+    period: "Dutch Golden Age winter landscape",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Winterlandschap-met-schaatsers--918895dc18da94e357c6763adda8882f",
     questions: [
       {
         q: "What are the hundreds of tiny figures doing?",
@@ -259,6 +302,11 @@ const OBJECTS = {
     motif: "neartown",
     image: "images/near-a-town.jpg",
     credit: "Rijksmuseum, Amsterdam",
+    medium: "Oil on panel",
+    museum: "Rijksmuseum, Amsterdam",
+    collectionId: "SK-A-3247",
+    period: "Dutch Golden Age winter landscape",
+    sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Enjoying-the-Ice--fa7712d894d8843ae6b8b2bc8716d4e9",
     questions: [
       {
         q: "Compared with his early work, how are the figures here?",

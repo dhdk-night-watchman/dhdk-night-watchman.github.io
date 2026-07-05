@@ -8,20 +8,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
+  <a class="skip-link" href="#app">Skip to the game</a>
   <div id="lantern" aria-hidden="true"></div>
+  <div id="sr-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-  <main class="wrap" id="app">
-    <section id="screen-title"   class="screen"></section>
-    <section id="screen-map"     class="screen"></section>
-    <section id="screen-gallery" class="screen"></section>
-    <section id="screen-object"  class="screen"></section>
-    <section id="screen-ending"  class="screen"></section>
+  <main class="wrap" id="app" tabindex="-1">
+    <section id="screen-title"   class="screen" role="region" aria-label="Title screen" tabindex="-1"></section>
+    <section id="screen-map"     class="screen" role="region" aria-label="Gallery map" tabindex="-1"></section>
+    <section id="screen-gallery" class="screen" role="region" aria-label="Gallery room" tabindex="-1"></section>
+    <section id="screen-object"  class="screen" role="region" aria-label="Object question" tabindex="-1"></section>
+    <section id="screen-ending"  class="screen" role="region" aria-label="Ending screen" tabindex="-1"></section>
   </main>
 
-  <script src="js/data.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/data.js?v=3"></script>
+  <script src="js/game.js?v=3"></script>
 </body>
 </html>

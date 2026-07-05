@@ -1,55 +1,117 @@
 # The Night Watchman
 
-**A hybrid museum game for the Rijksmuseum — after dark.**
+**The Night Watchman** is a hybrid educational museum game about the Rijksmuseum after dark. A fictional museum guard guides the player through four galleries by lantern, revealing eight real collection objects and asking short, forgiving questions about what each object shows and why it matters.
 
-🔦 **Play it live:** https://dhdk-night-watchman.github.io/
+The project is built as a static web prototype with HTML, CSS and JavaScript. It preserves a simple single-player flow: choose a gallery, inspect an object, answer questions, receive hints when unsure, study the museum record, and continue until the full tour is complete.
 
-A museum night guard, the *Night Watchman*, lets you wander the Rijksmuseum after closing.
-He guides you by lantern through four dark galleries, revealing real objects from the
-museum's open collection and asking a question or two about each. A wrong answer is never
-punished: the Watchman hints, then lets you **study** the object or **move on**. Passive
-browsing becomes a guided, forgiving tour.
+## Gameplay Overview
 
-Built on real [Rijksmuseum Collection Online](https://www.rijksmuseum.nl/en/collection) records.
+1. Take the lantern from the title screen.
+2. Choose one of four Rijksmuseum galleries.
+3. Inspect the two objects in that gallery.
+4. Answer two multiple-choice questions per object.
+5. If an answer is wrong, the Watchman gives a hint.
+6. If the player is still unsure, the answer is revealed and the player may study the object record or move on.
+7. Complete all four galleries to reach the ending screen.
 
----
+Scoring is intentionally forgiving:
 
-## How it plays
+- First correct answer: `10` points
+- Correct after a hint: `6` points
+- Study after help: `2` points
+- Move on / skip: `0` points
 
-1. **Take the lantern** on the title screen.
-2. In the **dark hall**, choose one of four galleries.
-3. The gallery is dark — **sweep your lantern** (move the pointer, or tap a frame) to reveal the works.
-4. Answer the Watchman's question: right first time → full points; wrong → a hint and a retry;
-   still unsure → the answer is revealed, then **study** it or **move on**. No dead ends.
-5. Finish all four galleries to reach dawn.
+## Digital Heritage Features
 
-**Scoring:** first try `10` · after a hint `6` · after help `2` · skip `0`.
+The game uses eight real objects from the Rijksmuseum collection:
 
----
+- The Night Watch
+- The Milkmaid
+- Flower Pyramid
+- Dolls' House of Petronella Oortman
+- Model of the William Rex
+- Dutch Ships in a Calm Sea
+- Winter Landscape with Ice Skaters
+- Enjoying the Ice near a Town
 
-## The collection (8 real objects, 2 per gallery)
+Each object includes structured museum-style metadata in the study section:
 
-| Gallery | Objects |
-|---|---|
-| The Gallery of Honour | The Night Watch (Rembrandt, 1642) · The Milkmaid (Vermeer, c. 1660) |
-| Delftware & Decorative Arts | Flower Pyramid (Delft, c. 1690s) · Dolls' House of Petronella Oortman (c. 1686–1710) |
-| The Golden Age of Sail | Model of the William Rex (1698) · Dutch Ships in a Calm Sea (Van de Velde the Younger, c. 1665) |
-| Life on the Ice | Winter Landscape with Ice Skaters (Avercamp, c. 1608) · Enjoying the Ice near a Town (Avercamp, c. 1620) |
+- Artist / creator
+- Title
+- Date
+- Medium / material
+- Gallery
+- Museum
+- Collection or inventory ID
+- Historical period
+- Official Rijksmuseum object page
 
-Every question, hint and study note is drawn from the object's real Rijksmuseum record.
+The learning design focuses on cultural heritage interpretation rather than memorisation. Questions are paired with hints and study notes so that mistakes become part of the learning process.
 
----
+## Accessibility Improvements
 
-## Project structure
+The interface includes:
 
+- Semantic screen regions for the title, map, gallery, object and ending screens
+- A skip link for keyboard users
+- Visible keyboard focus states
+- Keyboard-accessible buttons and links
+- `aria-live` announcements for quiz feedback, study information and tour completion
+- Screen-reader labels for gallery cards, object frames, progress and answer groups
+- A reduced-motion mode that disables the moving lantern overlay when requested by the user's system settings
+
+## Project Structure
+
+```text
+index.html       Main game shell and screen containers
+design.html      Concept page with diagrams and hybrid interaction notes
+css/style.css    Visual theme, layout, responsive rules and accessibility styles
+js/data.js       Galleries, objects, scoring, questions, hints and museum metadata
+js/game.js       Rendering, state management, progression, scoring and lantern logic
+images/          Artwork images used by the game
+diagrams/        Diagram image assets
+twine/           Twine-style user journey prototype
 ```
-index.html       # the game (title, hall, gallery, object, ending)
-design.html      # concept + diagrams (user flow, swimlane, user journey)
-css/style.css    # "museum after dark" theme + the lantern mechanic
-js/data.js       # the 8 objects: questions, hints, study notes, Watchman lines
-js/game.js       # game logic, lantern, forgiving loop, scoring
-twine/           # playable Twine-style version + importable story.twee
-images/          # photographs of the works
+
+## Architecture Summary
+
+The application is a static client-side prototype. `index.html` provides the page shell and loads the CSS and JavaScript. `data.js` acts as the source of truth for content, while `game.js` renders each screen dynamically and manages the current game state.
+
+State is kept in one object containing:
+
+- Current score
+- Completed galleries
+- Completed objects
+- Current gallery, object, question index and answer attempts
+
+The game does not use a backend, database, framework or build step.
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Static image assets
+- Twine-style story prototype
+
+## How to Run the Project
+
+Because the project is static, it can be opened directly in a browser:
+
+```text
+index.html
 ```
 
-Plain HTML, CSS and JavaScript — no build step or server needed.
+For local testing with a simple server, run this command from the project folder:
+
+```bash
+python3 -m http.server 8765
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765/
+```
+
+No installation step is required.

@@ -140,16 +140,86 @@ const state = {
 };
 
 /* ---------- screen helpers ---------- */
-const app = () => document.getElementById('app');
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const active = document.getElementById(id);
+  active.classList.add('active');
   // dark "find in the dark" mode only inside a gallery room
   document.body.classList.toggle('dark', id === 'screen-gallery');
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  active.focus({ preventScroll: true });
 }
 function rnd(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function announce(text) {
+  const region = document.getElementById('sr-status');
+  if (region) region.textContent = text;
+}
+
+function galleryForObject(objectId) {
+  return GALLERIES.find(g => g.objects.includes(objectId));
+}
+
+function progressStats() {
+  const totalGalleries = GALLERIES.length;
+  const completedGalleries = Object.keys(state.galleryDone).length;
+  const completedObjects = Object.keys(state.objectDone).length;
+  const totalObjects = Object.keys(OBJECTS).length;
+  const pct = Math.round((completedObjects / totalObjects) * 100);
+  return { totalGalleries, completedGalleries, remainingGalleries: totalGalleries - completedGalleries, completedObjects, totalObjects, pct };
+}
+
+function progressHTML(extraClass = '') {
+  const p = progressStats();
+  return `
+    <section class="progress-panel ${extraClass}" aria-label="Tour progress">
+      <div class="progress-row">
+        <span>Overall progress</span>
+        <strong>${p.pct}%</strong>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${p.pct}" aria-label="Overall tour progress">
+        <span style="width:${p.pct}%"></span>
+      </div>
+      <div class="progress-meta">
+        <span>${p.completedGalleries} completed</span>
+        <span>${p.remainingGalleries} remaining</span>
+        <span>${p.completedObjects} / ${p.totalObjects} objects</span>
+      </div>
+    </section>`;
+}
+
+function objectRecordHTML(obj) {
+  const gallery = galleryForObject(state.current.objectId);
+  const rows = [
+    ["Artist / Creator", obj.maker],
+    ["Title", obj.title],
+    ["Date", obj.date],
+    ["Medium / Material", obj.medium],
+    ["Gallery", gallery ? gallery.name : ""],
+    ["Museum", obj.museum],
+    ["Collection / Inventory ID", obj.collectionId],
+    ["Historical period", obj.period]
+  ].filter(([, value]) => value);
+
+  return `
+    <div class="object-record" aria-label="Museum object record">
+      <h3>Museum object record</h3>
+      <dl>
+        ${rows.map(([term, value]) => `<div><dt>${esc(term)}</dt><dd>${esc(value)}</dd></div>`).join('')}
+      </dl>
+    </div>`;
+}
+
+function learnMoreHTML(obj) {
+  return `
+    <div class="learn-more" aria-label="Learn more">
+      <h3>Learn More</h3>
+      <p>The Rijksmuseum record continues the story with collection data, images and related research.</p>
+      <a class="textlink external" href="${esc(obj.sourceUrl)}" target="_blank" rel="noopener noreferrer">
+        Open the official Rijksmuseum object page
+      </a>
+    </div>`;
+}
 
 /* image-or-motif renderer: try a real photo, fall back to the SVG drawing */
 function artHTML(obj) {
@@ -172,15 +242,15 @@ function renderTitle() {
         <path d="M34 30 h32 l6 34 a25 25 0 0 1 -44 0z" fill="#1c140d"/>
         <circle cx="50" cy="56" r="9" fill="#fff3d2"/>
       </svg>
-      <h1>The Night Watchman</h1>
+      <h1 id="title-heading">The Night Watchman</h1>
       <div class="sub">find what the daylight crowds walk past</div>
       <div class="watch-quote">${esc(WATCHMAN.welcome)}</div>
       <div class="title-actions">
-        <button class="btn" id="begin">Take the lantern</button>
+        <button class="btn" id="begin" aria-describedby="title-help">Take the lantern</button>
         <a class="btn ghost small" href="design.html">View design &amp; diagrams →</a>
         <a class="btn ghost small" href="twine/index.html">Twine version →</a>
       </div>
-      <p class="title-meta">Best on a phone, tablet or laptop — move your lantern (or just tap a frame) to reveal each work.
+      <p class="title-meta" id="title-help">Best on a phone, tablet or laptop — move your lantern (or just tap a frame) to reveal each work.
       Built on real <a class="textlink" href="https://www.rijksmuseum.nl/en/collection" target="_blank" rel="noopener">Rijksmuseum Collection Online</a> records. Guide: the Night Watchman.</p>
     </div>`;
   document.getElementById('begin').addEventListener('click', renderMap);
@@ -193,13 +263,15 @@ function renderMap() {
   s.innerHTML = `
     <div class="bar">
       <div class="score">Lantern score <b>${state.score}</b></div>
-      <div class="progress">Galleries walked: ${completed} / 4</div>
+      <div class="progress">Galleries walked: ${completed} / ${GALLERIES.length}</div>
     </div>
+    ${progressHTML('map-progress')}
+    <h1 class="sr-only">Dark hall gallery map</h1>
     <div class="eyebrow">The museum after dark</div>
-    <p class="room-hint">${esc(WATCHMAN.mapIntro)}</p>
-    <div class="doors">
+    <p class="room-hint" id="map-intro">${esc(WATCHMAN.mapIntro)}</p>
+    <div class="doors" aria-describedby="map-intro">
       ${GALLERIES.map((g, i) => `
-        <button class="door" data-g="${g.id}" style="--accent:${g.accent}">
+        <button class="door" data-g="${g.id}" style="--accent:${g.accent}" aria-label="${state.galleryDone[g.id] ? 'Revisit' : 'Enter'} ${esc(g.name)}. ${state.galleryDone[g.id] ? 'Gallery completed.' : 'Gallery unvisited.'}">
           <span class="accent"></span>
           <span class="num">GALLERY ${String(i + 1).padStart(2, '0')}</span>
           <h3>${esc(g.name)}</h3>
@@ -225,12 +297,18 @@ function openGallery(galleryId) {
       <button class="btn ghost small" id="back-map">← Dark hall</button>
       <div class="progress">${esc(g.name)}</div>
     </div>
+    ${progressHTML('compact-progress')}
+    <h1 class="sr-only">${esc(g.name)}</h1>
     <div class="room-head"><div class="eyebrow">${esc(g.name)}</div></div>
     <p class="room-hint">${esc(g.intro)}</p>
+    <section class="gallery-intro" aria-label="Gallery introduction">
+      ${lampGlyph}
+      <p>${esc(g.studyIntro)}</p>
+    </section>
     <div class="frames">
       ${g.objects.map(oid => {
         const o = OBJECTS[oid];
-        return `<button class="frame-btn" data-o="${oid}" aria-label="Inspect ${esc(o.title)}">
+        return `<button class="frame-btn" data-o="${oid}" aria-label="Inspect ${esc(o.title)} by ${esc(o.maker)}, ${esc(o.date)}">
           <div class="frame"><div class="canvas">${artHTML(o)}</div></div>
           <div class="frame-cap">${esc(o.title)}<small>${esc(o.maker)} · ${esc(o.date)}</small>
             ${state.objectDone[oid] ? '<span class="frame-done">✦ studied</span>' : ''}</div>
@@ -257,6 +335,7 @@ function renderQuestion() {
   const c = state.current;
   c.attempts = 0; c.hintUsed = false;
   const obj = OBJECTS[c.objectId];
+  const gallery = galleryForObject(c.objectId);
   const q = obj.questions[c.qIndex];
   const s = document.getElementById('screen-object');
   s.innerHTML = `
@@ -264,6 +343,8 @@ function renderQuestion() {
       <button class="btn ghost small" id="back-gallery">← Back to the room</button>
       <div class="score">Score <b style="color:var(--gold)">${state.score}</b></div>
     </div>
+    ${progressHTML('compact-progress')}
+    <h1 class="sr-only">${esc(obj.title)} question ${c.qIndex + 1}</h1>
     <div class="obj-grid">
       <div class="obj-art">
         <div class="frame"><div class="canvas">${artHTML(obj)}</div></div>
@@ -273,14 +354,14 @@ function renderQuestion() {
           <div class="credit">${esc(obj.credit)}</div>
         </div>
       </div>
-      <div class="qcard">
+      <div class="qcard" role="group" aria-labelledby="question-title">
         <div class="qstep">Question ${c.qIndex + 1} of ${obj.questions.length}</div>
-        <div class="qprompt">${esc(q.q)}</div>
-        <div class="options" id="options">
+        <h3 class="qprompt" id="question-title">${esc(q.q)}</h3>
+        <div class="options" id="options" role="group" aria-label="Answer choices for ${esc(obj.title)} in ${gallery ? esc(gallery.name) : 'this gallery'}">
           ${q.options.map((opt, i) => `<button class="opt" data-i="${i}">${esc(opt)}</button>`).join('')}
         </div>
-        <div class="speech hide" id="speech">${lampGlyph}<p id="speech-text"></p></div>
-        <div class="studybox hide" id="studybox"></div>
+        <div class="speech hide" id="speech" role="status" aria-live="polite" aria-atomic="true">${lampGlyph}<p id="speech-text"></p></div>
+        <div class="studybox hide" id="studybox" tabindex="-1"></div>
         <div class="afteractions" id="afteractions"></div>
       </div>
     </div>`;
@@ -293,6 +374,7 @@ function renderQuestion() {
 function say(text) {
   document.getElementById('speech').classList.remove('hide');
   document.getElementById('speech-text').textContent = text;
+  announce(text);
 }
 
 function handleAnswer(choice) {
@@ -346,12 +428,21 @@ function showStudyOrSkip() {
   document.getElementById('study').addEventListener('click', () => {
     const box = document.getElementById('studybox');
     box.classList.remove('hide');
-    box.innerHTML = `<b>The Watchman explains —</b> ${esc(q.study)}`;
+    box.innerHTML = `
+      <p><b>The Watchman explains —</b> ${esc(q.study)}</p>
+      ${objectRecordHTML(obj)}
+      ${learnMoreHTML(obj)}`;
     state.score += SCORING.afterHelp;
+    document.querySelector('.bar .score b').textContent = state.score;
+    announce(`Study information shown. ${obj.title}. ${q.study} Score is now ${state.score}.`);
     after.innerHTML = `<button class="btn" id="next">Continue (+${SCORING.afterHelp})</button>`;
     document.getElementById('next').addEventListener('click', advance);
+    box.focus({ preventScroll: true });
   });
-  document.getElementById('skip').addEventListener('click', advance);
+  document.getElementById('skip').addEventListener('click', () => {
+    announce('Moving on without additional points.');
+    advance();
+  });
 }
 
 function advance() {
@@ -385,6 +476,7 @@ function renderGalleryComplete(g) {
       <div style="margin-top:18px"><button class="btn" id="to-map">Return to the dark hall</button></div>
     </div>`;
   s.querySelector('#to-map').addEventListener('click', renderMap);
+  announce(`${g.name} complete. Return to the dark hall to choose another gallery.`);
   showScreen('screen-object');
 }
 
@@ -408,8 +500,10 @@ function renderEnding() {
     </div>`;
   s.querySelector('#replay').addEventListener('click', () => {
     state.score = 0; state.galleryDone = {}; state.objectDone = {};
+    announce('The tour has been reset.');
     renderMap();
   });
+  announce(`The tour is complete. Final score ${state.score} out of ${max}.`);
   showScreen('screen-ending');
 }
 
