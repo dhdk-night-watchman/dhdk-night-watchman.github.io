@@ -101,8 +101,8 @@ const OBJECTS = {
       },
       {
         q: "Why is the painting we see today smaller than Rembrandt made it?",
-        options: ["It was cut down in 1715 to fit a wall", "Rembrandt never finished it", "It shrank with age", "Half was lost in a shipwreck"],
-        answer: 0,
+        options: ["Rembrandt never finished it", "It shrank with age", "It was cut down in 1715 to fit a wall", "Half was lost in a shipwreck"],
+        answer: 2,
         hint: "When it was moved to Amsterdam's town hall, it had to fit a particular spot between two doors…",
         study:
           "In 1715 the canvas was moved to Amsterdam's Town Hall and trimmed on all sides — most heavily on the left — to fit between two doors. Several figures were lost, which is why the composition feels slightly off-centre."
@@ -123,12 +123,12 @@ const OBJECTS = {
     sourceUrl: "https://www.rijksmuseum.nl/en/collection/SK-A-2344",
     questions: [
       {
-        q: "What is the woman quietly doing?",
-        options: ["Pouring milk", "Reading a letter", "Playing music", "Sleeping"],
-        answer: 0,
-        hint: "Follow the thin white stream falling from the jug into the bowl.",
+        q: "What did Vermeer do with light that makes the bread and basket look so real?",
+        options: ["He used real gold", "He glued on real crumbs", "He left those parts unpainted", "Tiny dots of bright paint that mimic sparkle"],
+        answer: 3,
+        hint: "Look at the crust and the basket — those little highlights…",
         study:
-          "A kitchen maid carefully pours milk into a bowl. Vermeer renders the daylight from the window with extraordinary care — you can almost feel the weight of the jug and the texture of the bread."
+          "Vermeer built the surfaces from tiny points of light-coloured paint (pointillé), so the bread crust and wicker basket seem to catch and sparkle in the daylight."
       },
       {
         q: "Why was this painting unusual for its time?",
@@ -155,16 +155,16 @@ const OBJECTS = {
     questions: [
       {
         q: "What was this tall blue-and-white tower actually used for?",
-        options: ["Displaying cut flowers, one stem per spout", "Storing wine", "Burning incense", "Keeping bread warm"],
-        answer: 0,
+        options: ["Storing wine", "Displaying cut flowers, one stem per spout", "Burning incense", "Keeping bread warm"],
+        answer: 1,
         hint: "Notice the many small spouts pointing outward from every tier…",
         study:
           "Each spout held a single cut flower stem, and the tiers held water. Built from separate stacked segments of tin-glazed earthenware (faience) painted blue, it displayed costly flowers and showed off the owner's wealth and taste."
       },
       {
         q: "At whose court did this stacked flower-vase become fashionable?",
-        options: ["William and Mary", "Napoleon", "The Medici", "The Tudors"],
-        answer: 0,
+        options: ["Napoleon", "The Medici", "William and Mary", "The Tudors"],
+        answer: 2,
         hint: "A Dutch–English royal couple of the late 17th century, mad about porcelain and flowers…",
         study:
           "The model became fashionable at the court of William and Mary. Mary II was passionate about flower arranging and blue-and-white porcelain, and Delft potters imitated costly Chinese porcelain in local faience."
@@ -194,8 +194,8 @@ const OBJECTS = {
       },
       {
         q: "How expensive was it to create?",
-        options: ["As much as a real Amsterdam canal house", "A few guilders", "Nothing — it was a gift", "About a week's wages"],
-        answer: 0,
+        options: ["A few guilders", "Nothing — it was a gift", "As much as a real Amsterdam canal house", "About a week's wages"],
+        answer: 2,
         hint: "Think very, very expensive — bricks-and-mortar expensive.",
         study:
           "In its day it was valued at twenty to thirty thousand guilders — about the price of a real canal house in Amsterdam. It even had running water in the kitchen and dozens of tiny leather-bound books in the library."
@@ -225,8 +225,8 @@ const OBJECTS = {
       },
       {
         q: "Where does the name 'William Rex' come from?",
-        options: ["Monograms carved on the stern", "The captain's name", "The shipyard that built it", "A king who once sailed on it"],
-        answer: 0,
+        options: ["The captain's name", "The shipyard that built it", "A king who once sailed on it", "Monograms carved on the stern"],
+        answer: 3,
         hint: "The model can't be matched to any real ship — the name comes from letters on the back.",
         study:
           "The model cannot be firmly identified with a real ship. Since the 19th century it has been called 'William Rex' after the 'RWR' monograms carved into its richly decorated stern."
@@ -247,12 +247,12 @@ const OBJECTS = {
     sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Dutch-Ships-in-a-Calm-Sea--c726c1d696aa0f30815f174a8f4fb646",
     questions: [
       {
-        q: "What kind of weather does this sea painting show?",
-        options: ["A still, calm sea", "A violent storm", "A burning battle", "A frozen ocean"],
-        answer: 0,
-        hint: "Notice the glassy water and the slack, hanging sails.",
+        q: "Who first taught Willem van de Velde the Younger to paint?",
+        options: ["A ship's captain", "The King of Spain", "His father", "He was self-taught"],
+        answer: 2,
+        hint: "Marine painting ran in the family…",
         study:
-          "Willem van de Velde the Younger shows Dutch ships becalmed on a glassy sea under a wide, luminous sky. He was the leading marine painter of the Dutch Golden Age, prized for capturing ships, water and light."
+          "He was first taught by his father, Willem van de Velde the Elder, who also specialised in marine art, and later studied under Simon de Vlieger."
       },
       {
         q: "Why were sea paintings so popular in the 17th-century Dutch Republic?",
@@ -278,17 +278,17 @@ const OBJECTS = {
     sourceUrl: "https://www.rijksmuseum.nl/en/collection/object/Winterlandschap-met-schaatsers--918895dc18da94e357c6763adda8882f",
     questions: [
       {
-        q: "What are the hundreds of tiny figures doing?",
-        options: ["Skating and playing on a frozen river", "Fighting a battle", "Harvesting crops", "Building a church"],
+        q: "What is unusual about the shape of this painting?",
+        options: ["It is round", "It is a perfect square", "It is triangular", "It has no frame"],
         answer: 0,
-        hint: "It is deep winter and the river has frozen solid…",
+        hint: "Most paintings are rectangles — this one is not…",
         study:
-          "From a high viewpoint we see hundreds of people out on the ice — most for pleasure, some working from necessity. Avercamp also includes grim notes, like crows and a dog at a frozen horse's carcass."
+          "The panel is circular (a tondo). The round shape works like a peephole or a spyglass onto the ice, pulling your eye across the whole curved scene."
       },
       {
         q: "What was unusual about the artist, Hendrick Avercamp?",
-        options: ["He could not speak and was likely deaf", "He was a king", "He had never seen snow", "He painted only at night"],
-        answer: 0,
+        options: ["He was a king", "He had never seen snow", "He painted only at night", "He could not speak and was likely deaf"],
+        answer: 3,
         hint: "His nickname came from the way he communicated with others.",
         study:
           "Avercamp could not speak and was probably deaf, earning the nickname 'the Mute of Kampen.' He specialised in winter scenes and is seen as the founder of the Dutch winter landscape."
@@ -310,8 +310,8 @@ const OBJECTS = {
     questions: [
       {
         q: "Compared with his early work, how are the figures here?",
-        options: ["Larger and closer to us", "Tinier and further away", "Completely invisible", "Underwater"],
-        answer: 0,
+        options: [ "Tinier and further away", "Larger and closer to us", "Completely invisible", "Underwater"],
+        answer: 1,
         hint: "This is a later painting — the people are bigger and more detailed.",
         study:
           "By around 1620 Avercamp brought his figures closer to the viewer and made them larger and more detailed than the crowds of tiny figures in his earlier panoramas of the ice."
